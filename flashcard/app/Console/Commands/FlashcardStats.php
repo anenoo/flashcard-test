@@ -2,9 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Models\DTO\StatsResult;
-use App\Models\Flashcards;
-use App\Models\UsersAnswers;
 use App\Services\FlashcardsService;
 use Illuminate\Console\Command;
 
@@ -33,9 +30,9 @@ class FlashcardStats extends Command
     public function handle(FlashcardsService $flashcardsService)
     {
         $stateResult = $flashcardsService->calculateStats();
-        $this->info('- The total amount of questions.' . $stateResult->getTotal());
-        $this->info('- '.$stateResult->calculateAnsweredPercent().'% of questions that have an answer.');
-        $this->info('- '. $stateResult->calculateCorrectAnsweredPercent().'% of questions that have a correct answer.');
+        $this->info('<fg=bright-magenta>- The total amount of questions is ' . $stateResult->getTotal().'.</>');
+        $this->info('<fg=bright-blue>- ' . $stateResult->calculateAnsweredPercent() . '% of questions that have an answer.</>');
+        $this->info('<fg=bright-green>- ' . $stateResult->calculateCorrectAnsweredPercent() . '% of questions that have a correct answer.</>');
         return Command::SUCCESS;
     }
 }

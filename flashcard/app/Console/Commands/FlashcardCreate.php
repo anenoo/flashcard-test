@@ -3,9 +3,9 @@
 namespace App\Console\Commands;
 
 use App\Models\Flashcards;
-use App\Models\User;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class FlashcardCreate extends Command
 {
@@ -59,6 +59,7 @@ class FlashcardCreate extends Command
         $answer = $this->ask('What is the correct answer');
         $bar->advance();
         $this->line('');
+
         return array($question, $hint, $answer);
     }
 
@@ -70,15 +71,47 @@ class FlashcardCreate extends Command
      */
     public function saveFlashCard(mixed $question, mixed $hint, mixed $answer): void
     {
-        $newFlashCard = Flashcards::create([
-            'question' => $question,
-            'hint' => $hint,
-            'answer' => $answer,
-        ]);
-        if ($newFlashCard->id) {
-            $this->info('Flashcard created successfully');
-        } else {
-            $this->error('Something went wrong, please check again.');
+        if ($this->isValidationPassed($question, $hint, $answer)) {
+            $newFlashCard = Flashcards::create([
+                'question' => $question,
+                'hint' => $hint,
+                'answer' => $answer,
+            ]);
+            if ($newFlashCard->id) {
+                $this->info('Flashcard created successfully');
+            } else {
+                $this->error('Something went wrong, please check again.');
+            }
         }
+    }
+
+    /**
+     * @param mixed $question
+     * @param mixed $hint
+     * @param mixed $answer
+     * @return false
+     */
+    public function isValidationPassed(mixed $question, mixed $hint, mixed $answer): bool
+    {
+        $validator = Validator::make(
+            [
+                'question' => $question,
+                'hint' => $hint,
+                'answer' => $answer
+            ],
+            [
+                'question' => 'required|unique:flashcards|max:255',
+                'answered' => 'required'
+            ]
+        );
+
+        if ($validator->fails()) {
+            foreach ($validator->errors()->all() as $message) {
+                $this->error($message);
+            }
+            return false;
+        }
+
+        return true;
     }
 }

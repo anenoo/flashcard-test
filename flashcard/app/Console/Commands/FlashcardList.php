@@ -2,13 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Models\DTO\StatsResult;
-use App\Models\Flashcards;
 use App\Services\FlashcardsService;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Helper\TableSeparator;
 use Symfony\Component\Console\Helper\TableCell;
+use Symfony\Component\Console\Helper\TableSeparator;
 
 class FlashcardList extends Command
 {
@@ -63,7 +61,10 @@ class FlashcardList extends Command
         $table->setRows([
             ...$list,
             $separator,
-            [new TableCell('Completion', ['colspan' => 2]), new TableCell($getCompletion . '%', ['colspan' => 2])],
+            [
+                new TableCell('Completion', ['colspan' => 2]),
+                new TableCell($getCompletion . '%', ['colspan' => 2])
+            ],
         ]);
 
         // Render the table to the output.

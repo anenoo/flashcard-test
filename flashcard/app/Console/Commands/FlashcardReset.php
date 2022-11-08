@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Models\Constants\FlashcardsResetActions;
+use Artisan;
 use Illuminate\Console\Command;
 
 class FlashcardReset extends Command
@@ -31,11 +31,11 @@ class FlashcardReset extends Command
     {
         if ($this->confirm('Are you sure about reset all information?', true)) {
             $this->line('Cleaning all flash cards...');
-            \Artisan::call(
+            Artisan::call(
                 'migrate:fresh',
                 array('--seed' => true)
             );
-            $this->info('Everything happily reset :)');
+            $this->info('<fg=bright-magenta>Everything happily reset :)</>');
         }
 
         return Command::SUCCESS;

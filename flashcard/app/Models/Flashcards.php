@@ -16,33 +16,6 @@ class Flashcards extends Model
         'answer'
     ];
 
-    public function usersAnswers()
-    {
-        return $this->hasMany(UsersAnswers::class);
-    }
-
-    public function getAnswersAsArray()
-    {
-        return $this->usersAnswers()->get()->toArray();
-    }
-
-    /**
-     * @return string
-     */
-    public function getState(): string
-    {
-        $usersAnswers = $this->getAnswersAsArray();
-        if (count($usersAnswers)) {
-            foreach ($usersAnswers as $userAnswer) {
-                if ($userAnswer['answer'] === $this->answer) {
-                    return FlashcardsStates::STATE_CORRECT;
-                }
-            }
-            return FlashcardsStates::STATE_INCORRECT;
-        }
-        return FlashcardsStates::STATE_NOT_ANSWERED;
-    }
-
     /**
      * @return string
      */
@@ -67,6 +40,15 @@ class Flashcards extends Model
         return FlashcardsStates::STATE_NOT_ANSWERED;
     }
 
+    public function getAnswersAsArray()
+    {
+        return $this->usersAnswers()->get()->toArray();
+    }
+
+    public function usersAnswers()
+    {
+        return $this->hasMany(UsersAnswers::class);
+    }
 
     public function getStylesState(): string
     {
@@ -75,5 +57,22 @@ class Flashcards extends Model
             FlashcardsStates::STATE_INCORRECT => '<bg=yellow;fg=black>' . FlashcardsStates::STATE_INCORRECT . '</>',
             default => '<error>' . FlashcardsStates::STATE_NOT_ANSWERED . '</error>',
         };
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): string
+    {
+        $usersAnswers = $this->getAnswersAsArray();
+        if (count($usersAnswers)) {
+            foreach ($usersAnswers as $userAnswer) {
+                if ($userAnswer['answer'] === $this->answer) {
+                    return FlashcardsStates::STATE_CORRECT;
+                }
+            }
+            return FlashcardsStates::STATE_INCORRECT;
+        }
+        return FlashcardsStates::STATE_NOT_ANSWERED;
     }
 }

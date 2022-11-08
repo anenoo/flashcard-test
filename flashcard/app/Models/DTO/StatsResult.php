@@ -8,20 +8,9 @@ class StatsResult
     private int $answered;
     private int $correct;
 
-    /**
-     * @return int
-     */
-    public function getTotal(): int
+    public function calculateAnsweredPercent(): float
     {
-        return $this->total;
-    }
-
-    /**
-     * @param int $total
-     */
-    public function setTotal(int $total): void
-    {
-        $this->total = $total;
+        return round(($this->getAnswered() / $this->getTotal()) * 100);
     }
 
     /**
@@ -43,6 +32,27 @@ class StatsResult
     /**
      * @return int
      */
+    public function getTotal(): int
+    {
+        return $this->total;
+    }
+
+    /**
+     * @param int $total
+     */
+    public function setTotal(int $total): void
+    {
+        $this->total = $total;
+    }
+
+    public function calculateCorrectAnsweredPercent(): float
+    {
+        return round(($this->getCorrect() / $this->getTotal()) * 100);
+    }
+
+    /**
+     * @return int
+     */
     public function getCorrect(): int
     {
         return $this->correct;
@@ -54,15 +64,5 @@ class StatsResult
     public function setCorrect(int $correct): void
     {
         $this->correct = $correct;
-    }
-
-    public function calculateAnsweredPercent(): float
-    {
-        return round(($this->getAnswered()/$this->getTotal()) * 100);
-    }
-
-    public function calculateCorrectAnsweredPercent(): float
-    {
-        return round(($this->getCorrect()/$this->getTotal()) * 100);
     }
 }
