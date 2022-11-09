@@ -2,7 +2,7 @@ Flashcard CLI
 ==============
 This is a test which provided for Studoc Comapny for the Software Developer Position.
 
-Here is the bussiness logic that asked for the test:
+Here is the business logic that asked for the test:
 
 We want an interactive CLI program for Flashcard practice. For context: a flashcard is a spaced repetition tool for memorising questions and their respective answers.  
 The command \`php artisan flashcard:interactive\` should present a main menu with the following actions:  
@@ -84,7 +84,13 @@ There is an {--action} switch there which could be:
 
 
 ------------------------------------------------------------------------
-Also there some alternative way for doing this actions:
+Also, there some alternative way for doing this actions:
+
+For Practice the test please use this user, or create a new user for yourself:
+```
+Email: test@test.com
+Password: password
+```
 
 
 ### Flashcard List
