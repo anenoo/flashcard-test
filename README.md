@@ -106,10 +106,5 @@ php artisan flashcard:stats
 ### Flashcard Reset
 ```
 php artisan flashcard:reset
-```
-### Flashcard Exit
-```
-php artisan flashcard:exit
-```
 
 
