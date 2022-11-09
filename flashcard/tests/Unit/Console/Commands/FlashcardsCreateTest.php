@@ -4,7 +4,6 @@ namespace Tests\Unit\Console\Commands;
 
 use App\Console\Commands\FlashcardCreate;
 use App\Models\Flashcards;
-use App\Services\FlashcardsService;
 use Tests\TestCase;
 
 class FlashcardsCreateTest extends TestCase
@@ -13,7 +12,7 @@ class FlashcardsCreateTest extends TestCase
      * @cover FlashcardsCreate::handle
      * @cover FlashcardsCreate::AskForInputs
      * @cover FlashcardsCreate::saveFlashCard
-     * @group Flashcards
+     * @group FlashcardsCreate
      * @test
      * @return void
      */
@@ -30,7 +29,7 @@ class FlashcardsCreateTest extends TestCase
     /**
      * @cover FlashcardsCreate::handle
      * @cover FlashcardsCreate::isValidationPassed
-     * @group Flashcards
+     * @group FlashcardsCreate
      * @test
      * @return void
      */
@@ -48,7 +47,7 @@ class FlashcardsCreateTest extends TestCase
     /**
      * @cover FlashcardsCreate::handle
      * @cover FlashcardsCreate::isValidationPassed
-     * @group Flashcards
+     * @group FlashcardsCreate
      * @test
      * @return void
      */
@@ -65,7 +64,7 @@ class FlashcardsCreateTest extends TestCase
     /**
      * @cover FlashcardsCreate::handle
      * @cover FlashcardsCreate::isValidationPassed
-     * @group Flashcards
+     * @group FlashcardsCreate
      * @test
      * @return void
      */
@@ -82,7 +81,7 @@ class FlashcardsCreateTest extends TestCase
     /**
      * @cover FlashcardsCreate::handle
      * @cover FlashcardsCreate::isValidationPassed
-     * @group Flashcards
+     * @group FlashcardsCreate
      * @test
      * @return void
      */

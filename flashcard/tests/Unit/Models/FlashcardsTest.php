@@ -6,8 +6,8 @@ use App\Models\Constants\FlashcardsStates;
 use App\Models\Flashcards;
 use App\Models\User;
 use App\Models\UsersAnswers;
-use Tests\TestCase;
 use Artisan;
+use Tests\TestCase;
 
 class FlashcardsTest extends TestCase
 {
@@ -40,7 +40,7 @@ class FlashcardsTest extends TestCase
 
     /**
      * @cover Flashcards::getState
-     * @group Flashcards
+     * @group FlashcardsCreate
      * @test
      * @return void
      */
@@ -67,8 +67,8 @@ class FlashcardsTest extends TestCase
         $user = User::first();
         UsersAnswers::Create([
             'answer' => $flashcard->answer,
-            'user_id'=>$user->id,
-            'flashcards_id'=>$flashcard->id
+            'user_id' => $user->id,
+            'flashcards_id' => $flashcard->id
         ]);
         $state = $flashcard->getStateByUser($user);
         $this->assertTrue(($state === FlashcardsStates::STATE_CORRECT));

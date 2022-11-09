@@ -32,15 +32,17 @@ class FlashcardInteractive extends Command
      */
     public function handle()
     {
-        $this->checkTheInitialAction();
+        if (!$this->checkTheInitialAction()) {
+            return;
+        }
 
         return Command::SUCCESS;
     }
 
     /**
-     * @return void
+     * @return false
      */
-    public function checkTheInitialAction(): void
+    public function checkTheInitialAction(): bool
     {
         $takeAction = $this->choice(
             'What are you looking for?',
@@ -74,10 +76,10 @@ class FlashcardInteractive extends Command
                 $this->call('flashcard:reset');
                 break;
             case FlashcardsInteractiveActions::FLASHCARD_INTERACTIVE_ACTION_EXIT:
-                $this->call('flashcard:exit');
-                break;
+                return false;
             default:
                 $this->call('flashcard:list');
         }
+        return true;
     }
 }

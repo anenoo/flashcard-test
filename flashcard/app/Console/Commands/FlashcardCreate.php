@@ -9,23 +9,21 @@ use Illuminate\Support\Facades\Validator;
 
 class FlashcardCreate extends Command
 {
+    public const ASK_FOR_QUESTION = 'Give the question';
+    public const ASK_FOR_HINT = 'Add a hint, if it needs';
+    public const ASK_FOR_ANSWER = 'What is the correct answer';
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
     protected $signature = 'flashcard:create';
-
     /**
      * The console command description.
      *
      * @var string
      */
     protected $description = 'The user will be prompted to give a flashcard question and the only answer to that question.';
-
-    public const ASK_FOR_QUESTION = 'Give the question';
-    public const ASK_FOR_HINT = 'Add a hint, if it needs';
-    public const ASK_FOR_ANSWER = 'What is the correct answer';
 
     /**
      * Execute the console command.
