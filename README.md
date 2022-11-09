@@ -60,7 +60,12 @@ docker-compose up
 
 ### Go to the docker enverioment
 ```
-docker-compose up myapp bash
+docker-compose exec myapp bash
+```
+
+### Make sure the database is created and seeded
+```
+php artisan migrate:fresh --seed
 ```
 
 ### Make Flashcard Command Line Interactive by running this line

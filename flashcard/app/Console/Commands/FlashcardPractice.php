@@ -9,10 +9,10 @@ use App\Models\UsersAnswers;
 use App\Services\FlashcardsService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableCell;
 use Symfony\Component\Console\Helper\TableSeparator;
-use Illuminate\Support\Facades\Validator;
 
 class FlashcardPractice extends Command
 {

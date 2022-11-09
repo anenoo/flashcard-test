@@ -10,6 +10,9 @@ class Flashcards extends Model
 {
     use HasFactory;
 
+    /**
+     * @var string[]
+     */
     protected $fillable = [
         'question',
         'hint',
@@ -17,6 +20,52 @@ class Flashcards extends Model
     ];
 
     /**
+     * @return string
+     */
+    public function getStylesState(): string
+    {
+        return match ($this->getState()) {
+            FlashcardsStates::STATE_CORRECT => FlashcardsStates::STATE_STYLED_CORRECT,
+            FlashcardsStates::STATE_INCORRECT => FlashcardsStates::STATE_STYLED_INCORRECT,
+            default => FlashcardsStates::STATE_NOT_ANSWERED,
+        };
+    }
+
+    /**
+     * @return string
+     */
+    public function getState(): string
+    {
+        $usersAnswers = $this->getAnswersAsArray();
+        if (count($usersAnswers)) {
+            foreach ($usersAnswers as $userAnswer) {
+                if ($userAnswer['answer'] === $this->answer) {
+                    return FlashcardsStates::STATE_CORRECT;
+                }
+            }
+            return FlashcardsStates::STATE_INCORRECT;
+        }
+        return FlashcardsStates::STATE_NOT_ANSWERED;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnswersAsArray(): mixed
+    {
+        return $this->usersAnswers()->get()->toArray();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function usersAnswers(): mixed
+    {
+        return $this->hasMany(UsersAnswers::class);
+    }
+
+    /**
+     * @param User|null $user
      * @return string
      */
     public function getStateByUser(?User $user): string
@@ -36,42 +85,6 @@ class Flashcards extends Model
             if ($hasIncorrectAnswer) {
                 return FlashcardsStates::STATE_INCORRECT;
             }
-        }
-        return FlashcardsStates::STATE_NOT_ANSWERED;
-    }
-
-    public function getAnswersAsArray()
-    {
-        return $this->usersAnswers()->get()->toArray();
-    }
-
-    public function usersAnswers()
-    {
-        return $this->hasMany(UsersAnswers::class);
-    }
-
-    public function getStylesState(): string
-    {
-        return match ($this->getState()) {
-            FlashcardsStates::STATE_CORRECT => '<info>' . FlashcardsStates::STATE_CORRECT . '</info>',
-            FlashcardsStates::STATE_INCORRECT => '<bg=yellow;fg=black>' . FlashcardsStates::STATE_INCORRECT . '</>',
-            default => '<error>' . FlashcardsStates::STATE_NOT_ANSWERED . '</error>',
-        };
-    }
-
-    /**
-     * @return string
-     */
-    public function getState(): string
-    {
-        $usersAnswers = $this->getAnswersAsArray();
-        if (count($usersAnswers)) {
-            foreach ($usersAnswers as $userAnswer) {
-                if ($userAnswer['answer'] === $this->answer) {
-                    return FlashcardsStates::STATE_CORRECT;
-                }
-            }
-            return FlashcardsStates::STATE_INCORRECT;
         }
         return FlashcardsStates::STATE_NOT_ANSWERED;
     }
