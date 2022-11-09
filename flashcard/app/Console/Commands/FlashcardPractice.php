@@ -149,8 +149,8 @@ class FlashcardPractice extends Command
      */
     public function showResultBasedOnUser(FlashcardsService $flashcardsService, ?User $user = null): array
     {
-        $list = $flashcardsService->getFlashcardsWithStats($user);
-        $getCompletion = $flashcardsService->getCompletion($flashcardsService, $list);
+        $list = $flashcardsService->getFlashcardsWithStatsAndHint($user);
+        $getCompletion = $flashcardsService->getCompletion($list);
         $this->createANewTableInstanceWithCompletionFooterNoAnswerForQuestions($list, $getCompletion);
         return $list;
     }

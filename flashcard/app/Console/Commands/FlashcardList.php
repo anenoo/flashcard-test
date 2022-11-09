@@ -32,7 +32,7 @@ class FlashcardList extends Command
     public function handle(FlashcardsService $flashcardsService)
     {
         $list = $flashcardsService->getFlashcardsWithAnswerAndStats();
-        $getCompletion = $flashcardsService->getCompletion($flashcardsService, $list);
+        $getCompletion = $flashcardsService->getCompletion($list);
         $this->createANewTableInstanceWithCompletionFooterWithAnswer($list, $getCompletion);
 
         return Command::SUCCESS;

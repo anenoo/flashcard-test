@@ -13,7 +13,7 @@ class FlashcardReset extends Command
      *
      * @var string
      */
-    protected $signature = 'flashcard:reset';
+    protected $signature = 'flashcard:reset {--force}';
 
     /**
      * The console command description.
@@ -29,7 +29,10 @@ class FlashcardReset extends Command
      */
     public function handle()
     {
-        if ($this->confirm('Are you sure about reset all information?', true)) {
+        if (
+            $this->confirm('Are you sure about reset all information?', true)
+            || $this->option('force')
+        ) {
             $this->line('Cleaning all flash cards...');
             Artisan::call(
                 'migrate:fresh',

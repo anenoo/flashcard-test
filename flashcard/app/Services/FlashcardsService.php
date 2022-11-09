@@ -83,7 +83,7 @@ class FlashcardsService
      * @param User|null $user
      * @return array
      */
-    public function getFlashcardsWithStats(?User $user = null): array
+    public function getFlashcardsWithStatsAndHint(?User $user = null): array
     {
         $list = [];
         $flashcards = Flashcards::select('flashcards.id', 'question', 'hint', 'flashcards.answer')->get();
@@ -99,13 +99,12 @@ class FlashcardsService
     }
 
     /**
-     * @param FlashcardsService $flashcardsService
      * @param array $list
      * @return float
      */
-    public function getCompletion(FlashcardsService $flashcardsService, array $list): float
+    public function getCompletion(array $list): float
     {
-        $getCorrectAnswers = $flashcardsService->getCorrectAnswerQuestions();
+        $getCorrectAnswers = $this->getCorrectAnswerQuestions();
         $getTotalQuestions = count($list);
 
         $stateResult = new StatsResult();
