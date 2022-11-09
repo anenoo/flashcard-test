@@ -2,12 +2,11 @@
 
 namespace Database\Factories;
 
-use App\Models\Flashcards;
-use App\Models\User;
+use App\Models\UsersAnswers;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\UsersAnswers>
+ * @extends Factory<UsersAnswers>
  */
 class UsersAnswersFactory extends Factory
 {

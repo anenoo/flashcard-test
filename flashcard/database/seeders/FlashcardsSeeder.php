@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\Flashcards;
-use App\Models\UsersAnswers;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 

@@ -23,6 +23,10 @@ class FlashcardCreate extends Command
      */
     protected $description = 'The user will be prompted to give a flashcard question and the only answer to that question.';
 
+    public const ASK_FOR_QUESTION = 'Give the question';
+    public const ASK_FOR_HINT = 'Add a hint, if it needs';
+    public const ASK_FOR_ANSWER = 'What is the correct answer';
+
     /**
      * Execute the console command.
      *
@@ -34,11 +38,9 @@ class FlashcardCreate extends Command
         $bar->start();
 
         list($question, $hint, $answer) = $this->AskForInputs($bar);
-
         $bar->finish();
 
         $this->saveFlashCard($question, $hint, $answer);
-
         return Command::SUCCESS;
     }
 
@@ -48,15 +50,15 @@ class FlashcardCreate extends Command
      */
     public function AskForInputs($bar): array
     {
-        $question = $this->ask('Give the question');
+        $question = $this->ask(self::ASK_FOR_QUESTION);
         $bar->advance();
         $this->line('');
 
-        $hint = $this->ask('Add a hint, if it needs');
+        $hint = $this->ask(self::ASK_FOR_HINT);
         $bar->advance();
         $this->line('');
 
-        $answer = $this->ask('What is the correct answer');
+        $answer = $this->ask(self::ASK_FOR_ANSWER);
         $bar->advance();
         $this->line('');
 
@@ -101,7 +103,7 @@ class FlashcardCreate extends Command
             ],
             [
                 'question' => 'required|unique:flashcards|max:255',
-                'answered' => 'required'
+                'answer' => 'required'
             ]
         );
 

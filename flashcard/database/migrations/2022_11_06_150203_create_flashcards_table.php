@@ -17,7 +17,6 @@ return new class () extends Migration {
             $table->string('question');
             $table->string('hint')->nullable();
             $table->string('answer')->nullable();
-            ;
             $table->timestamps();
         });
     }

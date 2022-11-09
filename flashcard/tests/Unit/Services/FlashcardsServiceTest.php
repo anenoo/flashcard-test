@@ -18,7 +18,7 @@ class FlashcardsServiceTest extends TestCase
     {
         $flashcardsService = new FlashcardsService();
         $total = $flashcardsService->getTotalFlashCardsCount();
-        $this->assertTrue(($total === 10));
+        $this->assertTrue(($total >= 10));
     }
 
     /**
